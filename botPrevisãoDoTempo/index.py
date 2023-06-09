@@ -14,7 +14,7 @@ from  mysql.connector import Error
 
 
 def webScraping():
-
+  
     option = webdriver.ChromeOptions() #Cria o obejeto com a diretrizes para o browser que sera aberto
     option.add_argument("--start-maximized") # chrome maximizado DIRETRIZ 1
     option.add_argument("--lang=pt")  # Define o idioma para português DIRETRIZ 2
@@ -24,6 +24,28 @@ def webScraping():
     action = ActionChains(driver)
     # Acessa site específico
     driver.get('https://weather.com/weather/today/l/-12.25,-38.96?par=google') 
-    time.sleep(30)  
+    time.sleep(5)
+    
+    # Escreve cidade específica
+    WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.ID, 'LocationSearch_input'))).click()
+    time.sleep(10)
+    WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.ID, 'LocationSearch_input'))).send_keys('Feira de Santana, Bahia, Brazil')
+    time.sleep(3)
+    action.key_down(Keys.ENTER).perform()
+    time.sleep(3)
+    
+     # Aguardando a presença do elemento (aguardando a presença do elemento nos proximos 10 segundos)
+    temperatura = WebDriverWait(driver, 50).until(EC.visibility_of_element_located((By.CLASS_NAME, 'CurrentConditions--tempValue--MHmYY'))).text
+
+    print(f'\n\n--------------------------------------\n\nTemperatura atual na regional BA: {temperatura}F ☁️\n\n--------------------------------------')
+
+    #Transforma F em C      
+    temp = str(temperatura).replace('°','') 
+    temperatura_c  = int((int(temp) -32)/ 1.8)
+
+    print(f'\n\n--------------------------------------\n\nTemperatura atual na regional BA: {temperatura_c}°C ☁️\n\n--------------------------------------')
+
+    return temperatura_c
+
     
 webScraping()
