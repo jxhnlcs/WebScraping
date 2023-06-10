@@ -1,3 +1,9 @@
+# Oficina Web Scraping
+
+Sistema de automatização de captura de temperatura feito na oficina de Web Scraping no SENAI
+
+
+```shell
 pip install selenium
 
 pip install webdriver_manager
@@ -5,5 +11,10 @@ pip install webdriver_manager
 pip install  mysql-connector-python
 
 pip install pandas
+```
 
-https://weather.com/weather/today/l/-12.25,-38.96?par=google
+#### ⚙️:Tecnologias
+
+- Python
+- Selenium
+- Pandas
